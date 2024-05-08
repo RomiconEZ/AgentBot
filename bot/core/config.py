@@ -85,6 +85,8 @@ class Settings(BotSettings, DBSettings, CacheSettings):
 
     PREFIX_GEN_BACKEND_URL: str
 
+    COMPANY_NAME: str
+
     SENTRY_DSN: str | None = None
 
     AMPLITUDE_API_KEY: str  # or for example it could be POSTHOG_API_KEY
