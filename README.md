@@ -8,19 +8,19 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/RomiconEZ/CustomerBot">
-    <img src="readme_images/cust-bot-logo.jpg" alt="Logo" width="150" height="150">
+  <a href="https://github.com/RomiconEZ/AgentBot">
+    <img src="readme_images/agentbot_logo.png" alt="Logo" width="150" height=auto>
   </a>
 
-  <h3 align="center">Customer Telegram Bot</h3>
+  <h3 align="center">Agent Telegram Bot</h3>
 <h3 align="center">(Part of the contact center automation service)</h3>
 
   <p align="center">
     <br />
     <br />
-    <a href="https://github.com/RomiconEZ/CustomerBot/issues">Report Bug</a>
+    <a href="https://github.com/RomiconEZ/AgentBot/issues">Report Bug</a>
     ·
-    <a href="https://github.com/RomiconEZ/CustomerBot/issues">Request Feature</a>
+    <a href="https://github.com/RomiconEZ/AgentBot/issues">Request Feature</a>
   </p>
 </div>
 
@@ -54,20 +54,18 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project / О проекте
 
-Link to project in GitHub: https://github.com/RomiconEZ/CustomerBot
+Link to project in GitHub: https://github.com/RomiconEZ/AgentBot
 
 Данный Telegram Бот является частью системы автоматизации контакт-центра для тур-бизнеса.
 
-Он является связующим звеном между клиентами и агентами тур-бизнеса.
+Он предоставляет функции для работы с клиентами агентам тур-бизнеса.
 
-Основные цели бота - отправление текстовых сообщений и звуковых дорожек, сгенерированных на вопрос пользователя; 
-сбор отзывов и отправление на Backend сервер;
-добавление клиента в очередь ожидания для ответа от агента.
-
-В качестве базы данных для хранения информации о пользователях бота используется PostgreSQL.
-
-Диалоги пользователя с ботом хранятся в Redis. История ограничивается 4 последними сообщениями. 
-Также у истории есть максимальный срок хранения - 30 дней.
+Основные цели бота:
+* отправление информации об ожидающих клиентах агентам, чтобы они могли с ними связаться; 
+* редактирование информации об агентах
+* получение отзывов в формате excel
+* базовые функции(добавление/удаление/обновление/получение всех в excel формате) для туров
+(в дальнейшем пользователям будет доступен поиск туров через текстовые запросы по их желаниям)
 
 В данный момент сторонняя аналитика использования бота не используется.
 
@@ -80,7 +78,7 @@ Link to project in GitHub: https://github.com/RomiconEZ/CustomerBot
 * ![Python][Python.com]
 * <img src="readme_images/aiogram_logo.png" alt="lc_ch" style="width:100px; height:auto;">
 * ![Docker][Docker.com]
-* Init Backend Template: https://github.com/donBarbos/telegram-bot-template
+* Init Bot Template: https://github.com/donBarbos/telegram-bot-template
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -99,10 +97,13 @@ Link to project in GitHub: https://github.com/RomiconEZ/CustomerBot
 
 2. Copy the `.env.example` file in the directory and change the name to `.env`. Customize the env file for your project.
 
-3. Launch the Backend Server (https://github.com/RomiconEZ/GenerativeBackend)
+3. Compile locales with a separate command
+   ```shell
+   pybabel compile -d bot/locales
+   ```
+4. Launch the Backend Server (https://github.com/RomiconEZ/GenerativeBackend)
 
-
-4. In the terminal, navigate to the root directory of the cloned repository. Build the Docker containers with the following command:
+5. In the terminal, navigate to the root directory of the cloned repository. Build the Docker containers with the following command:
    ```shell
    docker compose up -d --build
    ```
@@ -136,16 +137,16 @@ Roman Neronov:
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/RomiconEZ/CustomerBot.svg?style=for-the-badge
-[contributors-url]: https://github.com/RomiconEZ/CustomerBot/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/RomiconEZ/CustomerBot.svg?style=for-the-badge
-[forks-url]: https://github.com/RomiconEZ/CustomerBot/network/members
-[stars-shield]: https://img.shields.io/github/stars/RomiconEZ/CustomerBot.svg?style=for-the-badge
-[stars-url]: https://github.com/RomiconEZ/CustomerBot/stargazers
-[issues-shield]: https://img.shields.io/github/issues/RomiconEZ/CustomerBot.svg?style=for-the-badge
-[issues-url]: https://github.com/RomiconEZ/CustomerBot/issues
-[license-shield]: https://img.shields.io/github/license/RomiconEZ/CustomerBot.svg?style=for-the-badge
-[license-url]: https://github.com/RomiconEZ/CustomerBot/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/RomiconEZ/AgentBot.svg?style=for-the-badge
+[contributors-url]: https://github.com/RomiconEZ/AgentBot/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/RomiconEZ/AgentBot.svg?style=for-the-badge
+[forks-url]: https://github.com/RomiconEZ/AgentBot/network/members
+[stars-shield]: https://img.shields.io/github/stars/RomiconEZ/AgentBot.svg?style=for-the-badge
+[stars-url]: https://github.com/RomiconEZ/AgentBot/stargazers
+[issues-shield]: https://img.shields.io/github/issues/RomiconEZ/AgentBot.svg?style=for-the-badge
+[issues-url]: https://github.com/RomiconEZ/AgentBot/issues
+[license-shield]: https://img.shields.io/github/license/RomiconEZ/AgentBot.svg?style=for-the-badge
+[license-url]: https://github.com/RomiconEZ/AgentBot/blob/master/LICENSE.txt
 
 
 [Python.com]: https://img.shields.io/badge/Python-14354C?style=for-the-badge&logo=python&logoColor=white

@@ -3,12 +3,12 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
-    container_name: bot
+    container_name: agentbot
     restart: always
     env_file:
       - .env
     ports:
-      - ${WEBHOOK_PORT}:${WEBHOOK_PORT}
+      - ${WEBHOOK_PORT_HOST}:${WEBHOOK_PORT}
     networks:
       - app
       - monitoring
@@ -23,12 +23,12 @@ services:
     build:
       context: .
       dockerfile: ./admin/Dockerfile
-    container_name: admin
+    container_name: admin_agentbot
     restart: always
     env_file:
       - .env
     ports:
-      - ${ADMIN_PORT}:${ADMIN_PORT}
+      - ${ADMIN_PORT_HOST}:${ADMIN_PORT}
     networks:
       - app
     depends_on:
@@ -38,7 +38,7 @@ services:
 
   postgres:
     image: postgres:14-alpine
-    container_name: postgres
+    container_name: postgres_agentbot
     restart: always
     env_file:
       - .env
@@ -54,7 +54,7 @@ services:
 
   pgbouncer:
     image: edoburu/pgbouncer
-    container_name: pgbouncer
+    container_name: pgbouncer_agentbot
     restart: always
     env_file:
       - .env
@@ -68,7 +68,7 @@ services:
       - ADMIN_USERS=postgres,${DB_USER}
       - AUTH_TYPE=scram-sha-256
     ports:
-      - ${DB_PORT}:${DB_PORT}
+      - ${DB_PORT_HOST}:${DB_PORT}
     depends_on:
       - postgres
     networks:
@@ -76,12 +76,12 @@ services:
 
   redis:
     image: redis:7-alpine
-    container_name: redis
+    container_name: redis_agentbot
     restart: always
     env_file:
       - .env
     ports:
-      - ${REDIS_PORT}:${REDIS_PORT}
+      - ${REDIS_PORT_HOST}:${REDIS_PORT}
     networks:
       - app
     volumes:
@@ -94,10 +94,10 @@ services:
   # MONITORING
   node-exporter:
     image: prom/node-exporter:latest
-    container_name: node-exporter
+    container_name: node-exporter_agentbot
     restart: unless-stopped
     ports:
-      - 9100:9100
+      - 9105:9100
     networks:
       - monitoring
     volumes:
@@ -112,12 +112,12 @@ services:
 
   prometheus:
     image: prom/prometheus:v2.43.0
-    container_name: prometheus
+    container_name: prometheus_agentbot
     restart: unless-stopped
     env_file:
       - .env
     ports:
-      - ${PROMETHEUS_PORT}:${PROMETHEUS_PORT}
+      - ${PROMETHEUS_PORT_HOST}:${PROMETHEUS_PORT}
     depends_on:
       - bot
       - node-exporter
@@ -135,7 +135,7 @@ services:
 
   grafana:
     image: grafana/grafana:8.5.22
-    container_name: grafana
+    container_name: grafana_agentbot
     restart: always
     env_file:
       - .env
@@ -144,7 +144,7 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD}
       - GF_INSTALL_PLUGINS=grafana-clock-panel
     ports:
-      - ${GRAFANA_PORT}:${GRAFANA_PORT}
+      - ${GRAFANA_PORT_HOST}:${GRAFANA_PORT}
     depends_on:
       - prometheus
     networks:
