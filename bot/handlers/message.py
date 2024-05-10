@@ -14,6 +14,9 @@ from bot.core.loader import redis_client
 
 router = Router(name="message")
 
+def get_user_message_history_key(user_id):
+    """Генерация ключа в базе данных для хранения истории сообщений пользователя"""
+    return f"chat_user_{user_id}_history"
 
 async def handle_chat_history(redis_client, user_id, message_text, max_history_size=5):
     """
@@ -28,7 +31,7 @@ async def handle_chat_history(redis_client, user_id, message_text, max_history_s
     Returns:
         list: Обновленная история чата.
     """
-    key = f"chat_user_{user_id}_history"
+    key = get_user_message_history_key(user_id)
     history = await redis_client.lrange(key, 0, -1)
     history = [eval(item) for item in history]
     history.append({"role": "user", "content": message_text})
@@ -219,7 +222,7 @@ async def text_message_handler(message: types.Message) -> None:
                 settings.PREFIX_GEN_BACKEND_URL,
                 response_data["id"],
                 redis_client,
-                f"chat_user_{message.from_user.id}_history",
+                get_user_message_history_key(message.from_user.id)
             )
             if assistant_response:
                 await message.answer(assistant_response)
