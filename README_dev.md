@@ -180,3 +180,13 @@ to launch the bot you only need a token bot, database and redis settings, everyt
 -   `redis` — in-memory data structure store used as a cache and FSM
 -   `prometheus` — time series database for collecting metrics from various systems
 -   `grafana` — visualization and analysis from various sources, including Prometheus
+
+## Formatting
+* black
+    ```bash
+    poetry run black .
+    ```
+* isort
+    ```bash
+    poetry run isort .
+    ```

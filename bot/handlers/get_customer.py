@@ -1,9 +1,11 @@
-import aiohttp
-from aiogram import Router, types, F
-from aiogram.filters.command import Command
-from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
-from aiogram.utils.i18n import gettext as _
 from datetime import datetime
+
+import aiohttp
+from aiogram import F, Router, types
+from aiogram.filters.command import Command
+from aiogram.types import (CallbackQuery, InlineKeyboardButton,
+                           InlineKeyboardMarkup)
+from aiogram.utils.i18n import gettext as _
 from babel.dates import format_datetime
 from icecream import ic
 
@@ -31,20 +33,24 @@ def format_waiting_customer_info(customer_info: dict) -> str:
     ]
 
     # Добавляем имя, фамилию и отчество, если они не пустые
-    customer_name = customer_info.get('customer_name')
+    customer_name = customer_info.get("customer_name")
     if customer_name:
         formatted_info.append(f"  *Имя*: {customer_name}")
 
-    customer_surname = customer_info.get('customer_surname')
+    customer_surname = customer_info.get("customer_surname")
     if customer_surname:
         formatted_info.append(f"  *Фамилия*: {customer_surname}")
 
-    customer_patronymic = customer_info.get('customer_patronymic')
+    customer_patronymic = customer_info.get("customer_patronymic")
     if customer_patronymic:
         formatted_info.append(f"  *Отчество*: {customer_patronymic}")
 
-    formatted_info.append(f"  *Краткое описание проблемы*: {customer_info.get('problem_summary', 'Неизвестно')}")
-    formatted_info.append(f"  *Создано*: {format_date(customer_info.get('created_at', 'Неизвестно'))}")
+    formatted_info.append(
+        f"  *Краткое описание проблемы*: {customer_info.get('problem_summary', 'Неизвестно')}"
+    )
+    formatted_info.append(
+        f"  *Создано*: {format_date(customer_info.get('created_at', 'Неизвестно'))}"
+    )
 
     return "\n".join(formatted_info)
 
@@ -54,13 +60,10 @@ async def assign_client_to_agent(customer_id, agent_id):
     data = {"agent_id": agent_id}
     async with aiohttp.ClientSession() as session:
         async with session.patch(
-                settings.PREFIX_GEN_BACKEND_URL
-                + f"waiting_customer?customer_id={customer_id}",
-                json=data,
-                headers={
-                    "accept": "application/json",
-                    "Content-Type": "application/json"
-                },
+            settings.PREFIX_GEN_BACKEND_URL
+            + f"waiting_customer?customer_id={customer_id}",
+            json=data,
+            headers={"accept": "application/json", "Content-Type": "application/json"},
         ) as response:
             if response.status == 200:
                 return True
@@ -72,11 +75,11 @@ async def delete_waiting_customer(customer_id):
     """Удаление клиента из очереди"""
     async with aiohttp.ClientSession() as session:
         async with session.delete(
-                settings.PREFIX_GEN_BACKEND_URL
-                + f"waiting_customer?customer_id={customer_id}",
-                headers={
-                    "accept": "application/json",
-                },
+            settings.PREFIX_GEN_BACKEND_URL
+            + f"waiting_customer?customer_id={customer_id}",
+            headers={
+                "accept": "application/json",
+            },
         ) as response:
             if response.status == 200:
                 return True
@@ -93,8 +96,8 @@ async def get_waiting_customer(message: types.Message) -> None:
     # Отправка GET-запроса
     async with aiohttp.ClientSession() as session:
         async with session.get(
-                settings.PREFIX_GEN_BACKEND_URL + f"waiting_customer",
-                headers={"accept": "application/json"},
+            settings.PREFIX_GEN_BACKEND_URL + f"waiting_customer",
+            headers={"accept": "application/json"},
         ) as response:
             if response.status == 200:
                 # Ожидающий клиент и количество ожидающих клиентов
@@ -103,12 +106,10 @@ async def get_waiting_customer(message: types.Message) -> None:
                 count_waiting_customers = data[1]
 
                 if count_waiting_customers == 0:
-                    await message.answer(
-                        _(f"Нет ожидающих клиентов")
-                    )
+                    await message.answer(_(f"Нет ожидающих клиентов"))
                     return
 
-                customer_id = waiting_customer_info.get('customer_id', None)
+                customer_id = waiting_customer_info.get("customer_id", None)
 
                 is_assigned = await assign_client_to_agent(customer_id, agent_id)
 
@@ -119,7 +120,9 @@ async def get_waiting_customer(message: types.Message) -> None:
                     return
 
                 # Форматируем для вывода информацию о пользователе
-                formatted_customer_info = format_waiting_customer_info(waiting_customer_info)
+                formatted_customer_info = format_waiting_customer_info(
+                    waiting_customer_info
+                )
 
                 # Отправляем информацию пользователю
                 await message.answer(formatted_customer_info, parse_mode="Markdown")
@@ -128,26 +131,27 @@ async def get_waiting_customer(message: types.Message) -> None:
                 )
 
                 # Добавляем кнопки "Беру" и "Отмена" и включаем customer_id в callback_data
-                markup = InlineKeyboardMarkup(inline_keyboard=[
-                    [
-                        InlineKeyboardButton(
-                            text=_("Беру"),
-                            callback_data=f"take_customer:{customer_id}"
-                        ),
-                        InlineKeyboardButton(
-                            text=_("Отмена"),
-                            callback_data=f"cancel_customer:{customer_id}"
-                        )
+                markup = InlineKeyboardMarkup(
+                    inline_keyboard=[
+                        [
+                            InlineKeyboardButton(
+                                text=_("Беру"),
+                                callback_data=f"take_customer:{customer_id}",
+                            ),
+                            InlineKeyboardButton(
+                                text=_("Отмена"),
+                                callback_data=f"cancel_customer:{customer_id}",
+                            ),
+                        ]
                     ]
-                ])
-
-                await message.answer(
-                    _("Выберите действие:"),
-                    reply_markup=markup
                 )
+
+                await message.answer(_("Выберите действие:"), reply_markup=markup)
             else:
                 await message.answer(
-                    _("Ошибка: В данный момент невозможно получить клиентов из очереди.")
+                    _(
+                        "Ошибка: В данный момент невозможно получить клиентов из очереди."
+                    )
                 )
 
 

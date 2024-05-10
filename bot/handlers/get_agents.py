@@ -18,8 +18,7 @@ async def get_agents_excel_file(message: types.Message) -> None:
     # Отправка GET-запроса
     async with aiohttp.ClientSession() as session:
         async with session.get(
-            settings.PREFIX_GEN_BACKEND_URL
-            + f"agents?self_agent_id={superagent_id}",
+            settings.PREFIX_GEN_BACKEND_URL + f"agents?self_agent_id={superagent_id}",
             headers={"accept": "*/*"},
         ) as response:
             if response.status == 200:
@@ -30,7 +29,9 @@ async def get_agents_excel_file(message: types.Message) -> None:
                     file=excel_content, filename=f"agents.xlsx"
                 )
 
-                await message.answer_document(excel_file, caption=_("Excel файл со всеми агентами"))
+                await message.answer_document(
+                    excel_file, caption=_("Excel файл со всеми агентами")
+                )
             else:
                 await message.answer(
                     _("Ошибка: В данный момент невозможно получить список агентов.")

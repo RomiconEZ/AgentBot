@@ -1,9 +1,10 @@
 from __future__ import annotations
 
 from typing import TYPE_CHECKING, List
-import aiohttp
 
-from aiogram.types import BotCommand, BotCommandScopeDefault, BotCommandScopeChat
+import aiohttp
+from aiogram.types import (BotCommand, BotCommandScopeChat,
+                           BotCommandScopeDefault)
 from icecream import ic
 
 from bot.core.config import settings
@@ -35,7 +36,6 @@ admins_commands: dict[str, dict[str, str]] = {
         "get_agents": "get excel file of agents",
         "delete_agent": "delete agent",
         "add_agent": "add agent",
-
     },
     "uk": {
         "get_customer": "get a customer in the queue",
@@ -44,7 +44,6 @@ admins_commands: dict[str, dict[str, str]] = {
         "get_agents": "get excel file of agents",
         "delete_agent": "delete agent",
         "add_agent": "add agent",
-
     },
     "ru": {
         "get_customer": "получить клиента в очереди",
@@ -56,13 +55,13 @@ admins_commands: dict[str, dict[str, str]] = {
     },
 }
 
+
 async def get_superagents_ids() -> List[int]:
     # Отправка POST-запроса
     async with aiohttp.ClientSession() as session:
         async with session.get(
-                settings.PREFIX_GEN_BACKEND_URL
-                + "superagents",
-                headers={"accept": "application/json"},
+            settings.PREFIX_GEN_BACKEND_URL + "superagents",
+            headers={"accept": "application/json"},
         ) as response:
             if response.status == 200:
                 # Получение ответа в виде текста
@@ -70,6 +69,7 @@ async def get_superagents_ids() -> List[int]:
                 return superagents_ids
             else:
                 return []
+
 
 async def set_default_commands(bot: Bot) -> None:
     await remove_default_commands(bot)

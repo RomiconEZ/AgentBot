@@ -102,6 +102,7 @@ Link to project in GitHub: https://github.com/RomiconEZ/AgentBot
    pybabel compile -d bot/locales
    ```
 4. Launch the Backend Server (https://github.com/RomiconEZ/GenerativeBackend)
+   (At the beginning of the bot's work, a request is made to GenerativeBackend to receive telegram ids of superagents to create admin versions of the chat)
 
 5. In the terminal, navigate to the root directory of the cloned repository. Build the Docker containers with the following command:
    ```shell
@@ -114,6 +115,7 @@ Link to project in GitHub: https://github.com/RomiconEZ/AgentBot
 
 ### Additionally
 * http://127.0.0.1:3000/ - Grafana
+* http://127.0.0.1:5010/ - Admin panel
 
 <!-- LICENSE -->
 ## License

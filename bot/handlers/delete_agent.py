@@ -4,10 +4,9 @@ from aiogram.filters.command import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.utils.i18n import gettext as _
-from icecream import ic
 
 from bot.core.config import settings
-from bot.handlers.add_agent import cancel_if_command
+from bot.handlers.functions import cancel_if_command_or_not_num
 
 router = Router(name="delete_agent")
 
@@ -23,17 +22,11 @@ async def start_deleting_agent(message: types.Message, state: FSMContext) -> Non
     await state.set_state(DeleteAgentForm.delete_agent_id)
 
 
-def is_cancel_message(text: str) -> bool:
-    """Check if the message text is a command or contains non-numeric characters"""
-    return text.startswith("/") or not text.isdigit()
-
-
 @router.message(DeleteAgentForm.delete_agent_id)
 async def deleting_agent(message: types.Message, state: FSMContext) -> None:
     """Удаление агента по полученному id"""
-    if is_cancel_message(message.text):
+    if await cancel_if_command_or_not_num(message, state):
         await message.answer(_("Удаление агента прервано."))
-        await state.clear()
         return
 
     delete_agent_id = message.text  # id удаляемого агента
@@ -47,9 +40,9 @@ async def deleting_agent(message: types.Message, state: FSMContext) -> None:
     # Отправка DELETE-запроса
     async with aiohttp.ClientSession() as session:
         async with session.delete(
-                settings.PREFIX_GEN_BACKEND_URL
-                + f"agent/{delete_agent_id}?self_agent_id={superagent_id}",
-                headers={"accept": "application/json"},
+            settings.PREFIX_GEN_BACKEND_URL
+            + f"agent/{delete_agent_id}?self_agent_id={superagent_id}",
+            headers={"accept": "application/json"},
         ) as response:
             if response.status == 200:
                 await message.answer(_(f"Агент с id {delete_agent_id} удален"))

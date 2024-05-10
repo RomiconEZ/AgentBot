@@ -16,8 +16,7 @@ async def get_reviews_excel_file(message: types.Message) -> None:
     # Отправка GET-запроса
     async with aiohttp.ClientSession() as session:
         async with session.get(
-            settings.PREFIX_GEN_BACKEND_URL
-            + f"reviews",
+            settings.PREFIX_GEN_BACKEND_URL + f"reviews",
             headers={"accept": "*/*"},
         ) as response:
             if response.status == 200:
@@ -28,7 +27,9 @@ async def get_reviews_excel_file(message: types.Message) -> None:
                     file=excel_content, filename=f"reviews.xlsx"
                 )
 
-                await message.answer_document(excel_file, caption=_("Excel файл со всеми отзывами"))
+                await message.answer_document(
+                    excel_file, caption=_("Excel файл со всеми отзывами")
+                )
             else:
                 await message.answer(
                     _("Ошибка: В данный момент невозможно получить отзывы.")
