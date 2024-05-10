@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import aiohttp
 from aiogram import F, Router, types
@@ -7,7 +7,6 @@ from aiogram.types import (CallbackQuery, InlineKeyboardButton,
                            InlineKeyboardMarkup)
 from aiogram.utils.i18n import gettext as _
 from babel.dates import format_datetime
-from icecream import ic
 
 from bot.core.config import settings
 
@@ -18,6 +17,8 @@ def format_date(date_str: str) -> str:
     """Преобразование строки с датой в форматированную дату на русском языке."""
     try:
         date_obj = datetime.fromisoformat(date_str.replace("Z", "+00:00"))
+        # Add 3 hours to the datetime object
+        date_obj += timedelta(hours=settings.TIME_ZONE)
         return format_datetime(date_obj, "d MMMM yyyy, HH:mm", locale="ru")
     except ValueError:
         return "Неизвестно"

@@ -89,6 +89,8 @@ class Settings(BotSettings, DBSettings, CacheSettings):
 
     SENTRY_DSN: str | None = None
 
+    TIME_ZONE: int
+
     AMPLITUDE_API_KEY: str  # or for example it could be POSTHOG_API_KEY
 
 
