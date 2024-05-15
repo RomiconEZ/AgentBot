@@ -121,7 +121,10 @@ Link to project in GitHub: https://github.com/RomiconEZ/AgentBot
 
 
 ### Chatbot Commands
-* **/get_customer** - получить клиента в очереди
+* **/get_customer** - get a customer in the queue / получить клиента в очереди 
+ 
+  (Client data contains telegram username, summarization of the user's dialogues 
+with the bot for the last 5 messages, and date of addition to the queue)
 * **/new_chat** - create a new chat / создать новый чат (clear chat history)
 * **/get_reviews** - get customer reviews in excel / получить отзывы клиентов в ехсеl
 * **/get_agents** - get agents in excel / получить агентов в excel
