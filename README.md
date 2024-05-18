@@ -135,9 +135,9 @@ with the bot for the last 5 messages, and date of addition to the queue)
 <!-- LICENSE -->
 ## License
 
-Distributed under the MIT License.
+This project is licensed under the terms of the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International license. See the LICENSE file for details.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+[![Creative Commons License](https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
 
 
 
