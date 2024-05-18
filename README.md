@@ -80,8 +80,6 @@ Link to project in GitHub: https://github.com/RomiconEZ/AgentBot
 * ![Python][Python.com]
 * <img src="readme_images/aiogram_logo.png" alt="lc_ch" style="width:100px; height:auto;">
 * ![Docker][Docker.com]
-* Init Bot Template: https://github.com/donBarbos/telegram-bot-template
-
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
