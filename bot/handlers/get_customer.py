@@ -6,11 +6,14 @@ from aiogram.filters.command import Command
 from aiogram.types import (CallbackQuery, InlineKeyboardButton,
                            InlineKeyboardMarkup)
 from aiogram.utils.i18n import gettext as _
+from aiohttp import ClientConnectorError
 from babel.dates import format_datetime
+from loguru import logger
 
 from bot.core.config import settings
 
 router = Router(name="get_customer")
+get_customer_error_text = "Ошибка: В данный момент невозможно получить клиентов из очереди."
 
 
 def format_date(date_str: str) -> str:
@@ -94,67 +97,72 @@ async def get_waiting_customer(message: types.Message) -> None:
     # Получаем Telegram ID пользователя
     agent_id = message.from_user.id
 
-    # Отправка GET-запроса
-    async with aiohttp.ClientSession() as session:
-        async with session.get(
-            settings.PREFIX_GEN_BACKEND_URL + f"waiting_customer",
-            headers={"accept": "application/json"},
-        ) as response:
-            if response.status == 200:
-                # Ожидающий клиент и количество ожидающих клиентов
-                data = await response.json()
-                waiting_customer_info = data[0]
-                count_waiting_customers = data[1]
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.get(
+                settings.PREFIX_GEN_BACKEND_URL + f"waiting_customer",
+                headers={"accept": "application/json"},
+            ) as response:
+                if response.status == 200:
+                    # Ожидающий клиент и количество ожидающих клиентов
+                    data = await response.json()
+                    waiting_customer_info = data[0]
+                    count_waiting_customers = data[1]
 
-                if count_waiting_customers == 0:
-                    await message.answer(_(f"Нет ожидающих клиентов"))
-                    return
+                    if count_waiting_customers == 0:
+                        await message.answer(_(f"Нет ожидающих клиентов"))
+                        return
 
-                customer_id = waiting_customer_info.get("customer_id", None)
+                    customer_id = waiting_customer_info.get("customer_id", None)
 
-                is_assigned = await assign_client_to_agent(customer_id, agent_id)
+                    is_assigned = await assign_client_to_agent(customer_id, agent_id)
 
-                if not is_assigned:
+                    if not is_assigned:
+                        await message.answer(
+                            _(f"Ошибка: не удалось закрепить клиента на агентом.")
+                        )
+                        return
+
+                    # Форматируем для вывода информацию о пользователе
+                    formatted_customer_info = format_waiting_customer_info(
+                        waiting_customer_info
+                    )
+
+                    # Отправляем информацию пользователю
+                    await message.answer(formatted_customer_info, parse_mode="Markdown")
                     await message.answer(
-                        _(f"Ошибка: не удалось закрепить клиента на агентом.")
+                        _(f"Всего ожидающих клиентов: {count_waiting_customers}")
                     )
-                    return
 
-                # Форматируем для вывода информацию о пользователе
-                formatted_customer_info = format_waiting_customer_info(
-                    waiting_customer_info
-                )
-
-                # Отправляем информацию пользователю
-                await message.answer(formatted_customer_info, parse_mode="Markdown")
-                await message.answer(
-                    _(f"Всего ожидающих клиентов: {count_waiting_customers}")
-                )
-
-                # Добавляем кнопки "Беру" и "Отмена" и включаем customer_id в callback_data
-                markup = InlineKeyboardMarkup(
-                    inline_keyboard=[
-                        [
-                            InlineKeyboardButton(
-                                text=_("Беру"),
-                                callback_data=f"take_customer:{customer_id}",
-                            ),
-                            InlineKeyboardButton(
-                                text=_("Отмена"),
-                                callback_data=f"cancel_customer:{customer_id}",
-                            ),
+                    # Добавляем кнопки "Беру" и "Отмена" и включаем customer_id в callback_data
+                    markup = InlineKeyboardMarkup(
+                        inline_keyboard=[
+                            [
+                                InlineKeyboardButton(
+                                    text=_("Беру"),
+                                    callback_data=f"take_customer:{customer_id}",
+                                ),
+                                InlineKeyboardButton(
+                                    text=_("Отмена"),
+                                    callback_data=f"cancel_customer:{customer_id}",
+                                ),
+                            ]
                         ]
-                    ]
-                )
-
-                await message.answer(_("Выберите действие:"), reply_markup=markup)
-            else:
-                await message.answer(
-                    _(
-                        "Ошибка: В данный момент невозможно получить клиентов из очереди."
                     )
-                )
 
+                    await message.answer(_("Выберите действие:"), reply_markup=markup)
+                else:
+                    await message.answer(
+                        _(
+                            get_customer_error_text
+                        )
+                    )
+    except ClientConnectorError:
+        logger.error("The connection to the backend server could not be established.")
+        await message.answer(get_customer_error_text)
+    except Exception as e:
+        logger.error(f"An error has occurred: \n {e}")
+        await message.answer(get_customer_error_text)
 
 @router.callback_query(F.data.startswith("take_customer:"))
 async def take_customer(callback: CallbackQuery) -> None:

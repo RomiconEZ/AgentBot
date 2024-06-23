@@ -3,12 +3,14 @@ from aiogram import Router, types
 from aiogram.filters.command import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
+from aiohttp import ClientConnectorError
+from loguru import logger
 
 from bot.core.config import settings
 from bot.handlers.functions import sanitize_input, cancel_if_command
 
 router = Router(name="add_agent")
-
+add_agent_error_text = "Произошла ошибка при добавлении агента."
 
 class AddAgentForm(StatesGroup):
     id = State()
@@ -123,27 +125,33 @@ async def add_agent_email(message: types.Message, state: FSMContext) -> None:
     # Получаем Telegram ID пользователя
     superagent_id = message.from_user.id
 
-    # Отправка POST-запроса
-    async with aiohttp.ClientSession() as session:
-        async with session.post(
-            settings.PREFIX_GEN_BACKEND_URL + f"agent?self_agent_id={superagent_id}",
-            headers={
-                "accept": "application/json",
-                "Content-Type": "application/json",
-            },
-            json={
-                "id": int(data["id"]),
-                "name": data["name"],
-                "surname": data["surname"],
-                "patronymic": data["patronymic"],
-                "username_telegram": data["username_telegram"],
-                "email": data["email"],
-            },
-        ) as response:
-            if response.status == 201:
-                await message.answer(f"Агент {data['name']} успешно добавлен.")
-            else:
-                await message.answer("Произошла ошибка при добавлении агента.")
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.post(
+                settings.PREFIX_GEN_BACKEND_URL + f"agent?self_agent_id={superagent_id}",
+                headers={
+                    "accept": "application/json",
+                    "Content-Type": "application/json",
+                },
+                json={
+                    "id": int(data["id"]),
+                    "name": data["name"],
+                    "surname": data["surname"],
+                    "patronymic": data["patronymic"],
+                    "username_telegram": data["username_telegram"],
+                    "email": data["email"],
+                },
+            ) as response:
+                if response.status == 201:
+                    await message.answer(f"Агент {data['name']} успешно добавлен.")
+                else:
+                    await message.answer(add_agent_error_text)
+    except ClientConnectorError:
+        logger.error("The connection to the backend server could not be established.")
+        await message.answer(add_agent_error_text)
+    except Exception as e:
+        logger.error(f"An error has occurred: \n {e}")
+        await message.answer(add_agent_error_text)
 
     # Очистка состояния
     await state.clear()

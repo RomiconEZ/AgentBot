@@ -51,14 +51,25 @@
 </details>
 
 
-
-
 <!-- ABOUT THE PROJECT -->
 ## About The Project / О проекте
 
 Link to project in GitHub: https://github.com/RomiconEZ/AgentBot
 
-Данный Telegram Бот является частью системы автоматизации контакт-центра для тур-бизнеса.
+#### = ENG =
+This Telegram Bot is part of the [contact center automation system for the travel industry](https://github.com/RomiconEZ/Contact-Center-Automation-Service ).
+
+It provides functions for working with clients to travel agents.
+
+The main goals of the bot:
+* Sending information about waiting clients to agents so that they can contact them; 
+* editing information about agents
+* receiving feedback in excel format
+* basic functions (add/delete/update/get all in excel format) for tours
+(in the future, users will be able to search for tours through text queries according to their wishes)
+
+#### = RU =
+Данный Telegram Бот является частью [системы автоматизации контакт-центра для тур-бизнеса](https://github.com/RomiconEZ/Contact-Center-Automation-Service).
 
 Он предоставляет функции для работы с клиентами агентам тур-бизнеса.
 
@@ -68,8 +79,6 @@ Link to project in GitHub: https://github.com/RomiconEZ/AgentBot
 * получение отзывов в формате excel
 * базовые функции(добавление/удаление/обновление/получение всех в excel формате) для туров
 (в дальнейшем пользователям будет доступен поиск туров через текстовые запросы по их желаниям)
-
-В данный момент сторонняя аналитика использования бота не используется.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -114,8 +123,8 @@ Link to project in GitHub: https://github.com/RomiconEZ/AgentBot
    ```
 
 ### Additionally
-* http://127.0.0.1:3000/ - Grafana
-* http://127.0.0.1:5010/ - Admin panel
+* http://localhost:3005 - Grafana
+* http://localhost:5015 - Admin panel
 
 
 ### Chatbot Commands
@@ -163,7 +172,7 @@ Roman Neronov:
 [issues-shield]: https://img.shields.io/github/issues/RomiconEZ/AgentBot.svg?style=for-the-badge
 [issues-url]: https://github.com/RomiconEZ/AgentBot/issues
 [license-shield]: https://img.shields.io/github/license/RomiconEZ/AgentBot.svg?style=for-the-badge
-[license-url]: https://github.com/RomiconEZ/AgentBot/blob/master/LICENSE.txt
+[license-url]: https://github.com/RomiconEZ/AgentBot/blob/dev/LICENSE.txt
 
 
 [Python.com]: https://img.shields.io/badge/Python-14354C?style=for-the-badge&logo=python&logoColor=white

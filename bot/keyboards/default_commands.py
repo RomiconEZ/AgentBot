@@ -5,7 +5,9 @@ from typing import TYPE_CHECKING, List
 import aiohttp
 from aiogram.types import (BotCommand, BotCommandScopeChat,
                            BotCommandScopeDefault)
-from icecream import ic
+from aiohttp import ClientConnectorError
+from loguru import logger
+
 
 from bot.core.config import settings
 
@@ -28,7 +30,6 @@ users_commands: dict[str, dict[str, str]] = {
 }
 
 admins_commands: dict[str, dict[str, str]] = {
-    **users_commands,
     "en": {
         "get_customer": "get a customer in the queue",
         "new_chat": "create new chat",
@@ -57,22 +58,30 @@ admins_commands: dict[str, dict[str, str]] = {
 
 
 async def get_superagents_ids() -> List[int]:
-    # Отправка POST-запроса
-    async with aiohttp.ClientSession() as session:
-        async with session.get(
-            settings.PREFIX_GEN_BACKEND_URL + "superagents",
-            headers={"accept": "application/json"},
-        ) as response:
-            if response.status == 200:
-                # Получение ответа в виде текста
-                superagents_ids = await response.json()
-                return superagents_ids
-            else:
-                return []
+    url = settings.PREFIX_GEN_BACKEND_URL + "superagents"
+    headers = {"accept": "application/json"}
+
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url, headers=headers) as response:
+                if response.status == 200:
+                    superagents_ids = await response.json()
+                    logger.debug(f"Superagents IDs retrieved: {superagents_ids}")
+                    return superagents_ids
+                else:
+                    return []
+    except ClientConnectorError:
+        logger.error("The connection to the backend server could not be established. Superagents are not specified.")
+        return []
+    except Exception as e:
+        logger.error(f"An error has occurred: \n {e} \n Superagents are not specified.")
+        return []
 
 
 async def set_default_commands(bot: Bot) -> None:
     await remove_default_commands(bot)
+
+    superagents_ids = await get_superagents_ids()
 
     for language_code in users_commands:
         await bot.set_my_commands(
@@ -83,7 +92,6 @@ async def set_default_commands(bot: Bot) -> None:
             scope=BotCommandScopeDefault(),
         )
 
-        superagents_ids = await get_superagents_ids()
         # Commands for admins
         for admin_id in superagents_ids:
             await bot.set_my_commands(

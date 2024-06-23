@@ -3,7 +3,7 @@ name = "customer-bot-karelia-tour"
 version = "0.1.0"
 description = "Part of the contact center automation service"
 authors = ["Roman Neronov <roman.nieronov@gmail.com>"]
-license = "MIT"
+license = "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"
 readme = "README.md"
 
 [tool.poetry.dependencies]

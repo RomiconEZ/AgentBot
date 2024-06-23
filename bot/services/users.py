@@ -18,7 +18,7 @@ async def add_user(
     referrer: str | None,
 ) -> None:
     """Add a new user to the database."""
-    user_id: int = user.id
+    user_id: int = int(user.id)
     first_name: str = user.first_name
     last_name: str | None = user.last_name
     username: str | None = user.username
@@ -92,8 +92,8 @@ async def is_admin(session: AsyncSession, user_id: int) -> bool:
 
     result = await session.execute(query)
 
-    is_admin = result.scalar_one_or_none()
-    return bool(is_admin)
+    is_admin_var = result.scalar_one_or_none()
+    return bool(is_admin_var)
 
 
 async def set_is_admin(session: AsyncSession, user_id: int, is_admin: bool) -> None:

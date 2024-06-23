@@ -190,3 +190,8 @@ to launch the bot you only need a token bot, database and redis settings, everyt
     ```bash
     poetry run isort .
     ```
+## Migrations
+* Create new version alembic
+    ```bash
+    docker compose exec bot alembic revision --autogenerate -m "add bigint id to users table"
+    ```
