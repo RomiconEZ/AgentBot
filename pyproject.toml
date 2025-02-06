@@ -41,7 +41,7 @@ tablib = {extras = ["xlsx"], version = "^3.8.0"}
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.9.4"
-mypy = "^1.14.1"
+mypy = "^1.15.0"
 pre-commit = "^4.1.0"
 black = "^25.1.0"
 isort = "^6.0.0"
