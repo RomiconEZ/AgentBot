@@ -11,7 +11,7 @@ python = "^3.10"
 sqlalchemy = "^2.0.38"
 pydantic = "^2.10.6"
 pydantic-settings = "^2.8.0"
-aiohttp = "^3.11.12"
+aiohttp = "^3.11.13"
 icecream = "^2.1.4"
 
 [tool.poetry.group.bot.dependencies]
@@ -20,7 +20,7 @@ asyncpg = "^0.30.0"
 redis = "^5.2.1"
 loguru = "^0.7.3"
 sentry-sdk = {extras = ["loguru"], version = "^2.22.0"}
-aiohttp = {extras = ["speedups"], version = "^3.11.12"}
+aiohttp = {extras = ["speedups"], version = "^3.11.13"}
 uvloop = "^0.21.0"
 babel = "^2.17.0"
 cachetools = "^5.5.2"
