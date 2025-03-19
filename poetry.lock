@@ -940,14 +940,14 @@ Flask = "*"
 
 [[package]]
 name = "flask-security-too"
-version = "5.6.0"
+version = "5.6.1"
 description = "Quickly add security features to your Flask application."
 optional = false
 python-versions = ">=3.9"
 groups = ["admin"]
 files = [
-    {file = "flask_security_too-5.6.0-py3-none-any.whl", hash = "sha256:dc70147bc34964f0c965b03c2762feef7bf57375d1584a0d3b9ada7c98366d22"},
-    {file = "flask_security_too-5.6.0.tar.gz", hash = "sha256:8da51fcb7393e3fe6f931af84ed4c90c7c08bbfe99a19080cb4b7343e76d80b2"},
+    {file = "flask_security_too-5.6.1-py3-none-any.whl", hash = "sha256:890a0f1c98cd825c82646aec1df21c75f717c3538a4e47c1ad6d6add94314887"},
+    {file = "flask_security_too-5.6.1.tar.gz", hash = "sha256:d2dbfc4fedce6b124a8d268d18116fdbac48d4f712afea8abe60aac3235c583a"},
 ]
 
 [package.dependencies]
@@ -965,7 +965,7 @@ wtforms = ">=3.0.0"
 babel = ["babel (>=2.12.1)", "flask_babel (>=3.1.0)"]
 common = ["argon2_cffi (>=21.3.0)", "bcrypt (>=4.0.1)", "bleach (>=6.0.0)", "flask_mailman (>=0.3.0)"]
 fsqla = ["flask_sqlalchemy (>=3.1.0)", "sqlalchemy (>=2.0.18)", "sqlalchemy-utils (>=0.41.1)"]
-low = ["Flask (==3.0.0)", "Flask-Babel (==3.1.0)", "Flask-Login (==0.6.3)", "Flask-Mailman (==0.3.0)", "Flask-SQLAlchemy (==3.1.0)", "Flask-SQLAlchemy-Lite (==0.1.0) ; python_version >= \"3.10\"", "Flask-WTF (==1.1.2)", "argon2_cffi (==21.3.0)", "authlib (==1.2.0)", "babel (==2.12.1)", "bcrypt (==4.0.1)", "bleach (==6.0.0)", "freezegun", "itsdangerous (==2.1.2)", "jinja2 (==3.1.2)", "markupsafe (==2.1.2)", "mongoengine (==0.27.0)", "mongomock (==4.1.2)", "peewee (==3.16.2)", "phonenumberslite (==8.13.11)", "pony (==0.7.16) ; python_version < \"3.11\"", "qrcode (==7.4.2)", "requests", "setuptools", "sqlalchemy (==2.0.18)", "sqlalchemy-utils (==0.41.1)", "webauthn (==2.0.0)", "werkzeug (==3.0.1)", "zxcvbn (==4.4.28)"]
+low = ["Flask (==3.0.0)", "Flask-Babel (==4.0.0)", "Flask-Login (==0.6.3)", "Flask-Mailman (==0.3.0)", "Flask-SQLAlchemy (==3.1.0)", "Flask-SQLAlchemy-Lite (==0.1.0) ; python_version >= \"3.10\"", "Flask-WTF (==1.1.2)", "argon2_cffi (==21.3.0)", "authlib (==1.2.0)", "babel (==2.12.1)", "bcrypt (==4.0.1)", "bleach (==6.0.0)", "freezegun", "itsdangerous (==2.1.2)", "jinja2 (==3.1.2)", "markupsafe (==2.1.2)", "mongoengine (==0.27.0)", "mongomock (==4.1.2)", "peewee (==3.16.2)", "phonenumberslite (==8.13.11)", "pony (==0.7.16) ; python_version < \"3.11\"", "qrcode (==7.4.2)", "requests", "setuptools", "sqlalchemy (==2.0.18)", "sqlalchemy-utils (==0.41.1)", "webauthn (==2.0.0)", "werkzeug (==3.0.1)", "zxcvbn (==4.4.28)"]
 mfa = ["cryptography (>=40.0.2)", "phonenumberslite (>=8.13.11)", "qrcode (>=7.4.2)", "webauthn (>=2.0.0)"]
 
 [[package]]
@@ -2826,4 +2826,4 @@ propcache = ">=0.2.0"
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.10"
-content-hash = "44954e712fd9cd7fcddca9bb32cddbb5558b2da7db6330d57dc882c377d6361d"
+content-hash = "cbd5ce429db187bce5ee9eaec665605a57f4918b7fbc0fb8c5ee4de1e191200f"
