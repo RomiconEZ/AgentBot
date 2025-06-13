@@ -30,14 +30,14 @@ files = [
 
 [[package]]
 name = "aiogram"
-version = "3.20.0"
+version = "3.20.0.post0"
 description = "Modern and fully asynchronous framework for Telegram Bot API"
 optional = false
 python-versions = ">=3.9"
 groups = ["bot"]
 files = [
-    {file = "aiogram-3.20.0-py3-none-any.whl", hash = "sha256:d336b761f193ffc14f348958793b81a428f633b82fca26ab22dc1e1b996526ee"},
-    {file = "aiogram-3.20.0.tar.gz", hash = "sha256:eb0b32e2d0bacdf15fa75d9bf3a3e12f9c51dfe48e001755bd9781c40d7f5366"},
+    {file = "aiogram-3.20.0.post0-py3-none-any.whl", hash = "sha256:c8f5a68b0729e74efa15a7fc285bd49fa3d0603de5e424404219a822f8e5f4d1"},
+    {file = "aiogram-3.20.0.post0.tar.gz", hash = "sha256:2443799b4514ac251fcf2d561603e250f8763808542222fa1136901058eda9a3"},
 ]
 
 [package.dependencies]
