@@ -1197,14 +1197,14 @@ tornado = ["tornado (>=0.2)"]
 
 [[package]]
 name = "icecream"
-version = "2.1.7"
-description = "Never use print() to debug again; inspect variables, expressions, and program execution with a single, simple function call."
+version = "2.1.8"
+description = "Never use print() to debug again: inspect variables, expressions, and program execution with a single, simple function call."
 optional = false
 python-versions = "*"
 groups = ["main"]
 files = [
-    {file = "icecream-2.1.7-py3-none-any.whl", hash = "sha256:b52cdd40cb5080279c4534fcd77aa510b1e7397a687e9d4daf2f8d2028bd738c"},
-    {file = "icecream-2.1.7.tar.gz", hash = "sha256:936df053e65ff3c7a219fa79311b32bdae19aad83dd2e23d153ab8864b78acd9"},
+    {file = "icecream-2.1.8-py3-none-any.whl", hash = "sha256:10b1c39dcb54cb28eb487bac56c35dbf9c2b2f406d24340e1a615c3f17274852"},
+    {file = "icecream-2.1.8.tar.gz", hash = "sha256:37269bbc62b02f0d85bfaf3a0eb4df272c967fad059f7ddcdaee5303ea2b2a62"},
 ]
 
 [package.dependencies]
@@ -2910,4 +2910,4 @@ propcache = ">=0.2.0"
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.10"
-content-hash = "2879f55ed97e1220d030bebef0d20a3c937106f37c681e641b1ee5f83d6dc380"
+content-hash = "b2dbf5e37b78953d107407ae7d826ca9cca53eb6ba4af253baf41369792ddca5"

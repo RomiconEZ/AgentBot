@@ -12,7 +12,7 @@ sqlalchemy = "^2.0.43"
 pydantic = "^2.11.7"
 pydantic-settings = "^2.10.1"
 aiohttp = "^3.12.15"
-icecream = "^2.1.7"
+icecream = "^2.1.8"
 
 [tool.poetry.group.bot.dependencies]
 aiogram = "^3.22.0"
