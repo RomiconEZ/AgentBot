@@ -1199,14 +1199,14 @@ test = ["objgraph", "psutil"]
 
 [[package]]
 name = "gunicorn"
-version = "24.0.0"
+version = "24.1.1"
 description = "WSGI HTTP Server for UNIX"
 optional = false
 python-versions = ">=3.10"
 groups = ["admin"]
 files = [
-    {file = "gunicorn-24.0.0-py3-none-any.whl", hash = "sha256:30401647ed4f162a3f7e5b8b3ed77e6e88d9a4ea5599f1ff31f7f54a7610339c"},
-    {file = "gunicorn-24.0.0.tar.gz", hash = "sha256:7f6c916308740942586f49f14cf3743bdfc4130c29520c42706f42fa5a2dacdb"},
+    {file = "gunicorn-24.1.1-py3-none-any.whl", hash = "sha256:757f6b621fc4f7581a90600b2cd9df593461f06a41d7259cb9b94499dc4095a8"},
+    {file = "gunicorn-24.1.1.tar.gz", hash = "sha256:f006d110e5cb3102859b4f5cd48335dbd9cc28d0d27cd24ddbdafa6c60929408"},
 ]
 
 [package.dependencies]
@@ -3031,4 +3031,4 @@ propcache = ">=0.2.0"
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.10"
-content-hash = "e2255a2f7a1eb75fef394e526fb623a6e7fcd02ed33f56f73af9033f4813ebc6"
+content-hash = "a0dfce9dcebb6b8631771bcb83bc12cd08659d61d835ad9c6c6d0f903d97f387"
