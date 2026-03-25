@@ -1199,14 +1199,14 @@ test = ["objgraph", "psutil"]
 
 [[package]]
 name = "gunicorn"
-version = "25.1.0"
+version = "25.2.0"
 description = "WSGI HTTP Server for UNIX"
 optional = false
 python-versions = ">=3.10"
 groups = ["admin"]
 files = [
-    {file = "gunicorn-25.1.0-py3-none-any.whl", hash = "sha256:d0b1236ccf27f72cfe14bce7caadf467186f19e865094ca84221424e839b8b8b"},
-    {file = "gunicorn-25.1.0.tar.gz", hash = "sha256:1426611d959fa77e7de89f8c0f32eed6aa03ee735f98c01efba3e281b1c47616"},
+    {file = "gunicorn-25.2.0-py3-none-any.whl", hash = "sha256:88f5b444d0055bf298435384af7294f325e2273fd37ba9f9ff7b98e0a1e5dfdc"},
+    {file = "gunicorn-25.2.0.tar.gz", hash = "sha256:10bd7adb36d44945d97d0a1fdf9a0fb086ae9c7b39e56b4dece8555a6bf4a09c"},
 ]
 
 [package.dependencies]
@@ -1214,6 +1214,7 @@ packaging = "*"
 
 [package.extras]
 eventlet = ["eventlet (>=0.40.3)"]
+fast = ["gunicorn_h1c (>=0.4.1)"]
 gevent = ["gevent (>=24.10.1)"]
 http2 = ["h2 (>=4.1.0)"]
 setproctitle = ["setproctitle"]
@@ -3063,4 +3064,4 @@ propcache = ">=0.2.0"
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.10"
-content-hash = "449c051116ec8f05b051298d4d7eec1763f14afbc787954fac1f82ab3c4ddb0a"
+content-hash = "6701eae02fe62beb1242ac85f240b0a18d31c9166138afd10c80645f6cf55ed8"
