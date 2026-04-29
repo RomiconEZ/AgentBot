@@ -874,14 +874,14 @@ dotenv = ["python-dotenv"]
 
 [[package]]
 name = "flask-admin"
-version = "2.0.2"
+version = "2.1.0"
 description = "Simple and extensible admin interface framework for Flask"
 optional = false
 python-versions = ">=3.10"
 groups = ["admin"]
 files = [
-    {file = "flask_admin-2.0.2-py3-none-any.whl", hash = "sha256:4b3c44068de0fe4630dfcd190cc11231cbbdd7bac315c74c55d1764087b8b273"},
-    {file = "flask_admin-2.0.2.tar.gz", hash = "sha256:1d06aec7efee957972b43f6b08a0bd08d5f4cf9a337d4ece2f17c98abc2a214e"},
+    {file = "flask_admin-2.1.0-py3-none-any.whl", hash = "sha256:ec6197293fd4378b13b62b8439c4cd13f3f266ead27f253c76089aa71be5003d"},
+    {file = "flask_admin-2.1.0.tar.gz", hash = "sha256:d88c26de71f548b589dd956996844eb348212dda4e8a9b7178ae1f6fdf387459"},
 ]
 
 [package.dependencies]
@@ -893,7 +893,7 @@ werkzeug = ">=2.0"
 wtforms = ">=2.3"
 
 [package.extras]
-all = ["Flask-Admin[azure-blob-storage]", "Flask-Admin[export]", "Flask-Admin[geoalchemy]", "Flask-Admin[images]", "Flask-Admin[mongoengine]", "Flask-Admin[peewee]", "Flask-Admin[pymongo]", "Flask-Admin[rediscli]", "Flask-Admin[s3]", "Flask-Admin[sqlalchemy-with-utils]", "Flask-Admin[sqlalchemy]", "Flask-Admin[translation]"]
+all = ["Flask-Admin[azure-blob-storage]", "Flask-Admin[export]", "Flask-Admin[geoalchemy]", "Flask-Admin[images]", "Flask-Admin[mongoengine]", "Flask-Admin[peewee]", "Flask-Admin[pymongo]", "Flask-Admin[rediscli]", "Flask-Admin[s3]", "Flask-Admin[sqlalchemy-lite]", "Flask-Admin[sqlalchemy-with-utils]", "Flask-Admin[sqlalchemy]", "Flask-Admin[translation]"]
 azure-blob-storage = ["azure-storage-blob (>=12.0.0)"]
 export = ["tablib (>=3.0.0)"]
 geoalchemy = ["Flask-Admin[sqlalchemy]", "geoalchemy2 (>=0.14.0)", "shapely (>=2)"]
@@ -904,6 +904,7 @@ pymongo = ["pymongo (>=3.10.0)"]
 rediscli = ["redis (>=4.0.0)"]
 s3 = ["boto3 (>=1.33)"]
 sqlalchemy = ["flask-sqlalchemy (>=3)", "sqlalchemy (>=1.4)"]
+sqlalchemy-lite = ["flask-sqlalchemy-lite"]
 sqlalchemy-with-utils = ["Flask-Admin[sqlalchemy]", "arrow (>=0.14.0)", "colour (>=0.1.5)", "email_validator (>=2)", "sqlalchemy-citext (>=1.8.0)", "sqlalchemy_utils (>=0.38.0)"]
 translation = ["flask-babel (>=3.0.1)"]
 
