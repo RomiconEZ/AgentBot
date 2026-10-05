@@ -21,7 +21,7 @@ redis = ">=7.4,<9.0"
 loguru = "^0.7.3"
 sentry-sdk = {extras = ["loguru"], version = "^2.57.0"}
 aiohttp = {extras = ["speedups"], version = "^3.12.15"}
-uvloop = "^0.22.1"
+uvloop = ">=0.22.1,<0.24.0"
 babel = "^2.18.0"
 cachetools = "^7.0.5"
 orjson = "^3.11.8"
